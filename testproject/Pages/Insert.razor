@@ -1,0 +1,18 @@
+﻿@page "/insert"
+@inject NavigationManager nm
+
+<EditForm Model="m1" OnSubmit="save_user_info">
+    <input type="text" placeholder="Enter Name" @bind-value="m1.Name" />
+    <input type="text" placeholder="Enter Email" @bind-value="m1.Email" />
+    <input type="text" placeholder="Enter Phone number" @bind-value="m1.Phone" />
+    <button type="submit">Save</button>
+</EditForm>
+
+@code {
+    modeluser m1 { get; set; } = new modeluser();
+    private void save_user_info()
+    {
+        daluser.save_user(m1);
+        nm.NavigateTo("showdata");
+    }
+}

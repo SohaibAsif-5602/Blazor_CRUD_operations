@@ -1,0 +1,41 @@
+﻿@page "/showdata"
+
+<h3>data</h3>
+
+
+<table class="table">
+    <tbody>
+    @foreach(var item in modelusers)
+    {
+        <tr>
+            <td>@item.User_id</td>
+            <td>@item.Name</td>
+            <td>@item.Email</td>
+            <td>@item.Phone</td>
+            <td> <button class="btn btn-outline-danger btn-sm" @onclick="()=>deldata(item.User_id)">Delete</button></td>
+            <td><a href="update_user/@item.User_id" class="btn btn-outline-warning btn-sm">Update</a></td>
+            
+        </tr>
+
+    }
+    </tbody>
+</table>
+<a class="btn btn-outline-danger btn-sm" href="insert">Add User</a>
+
+@code {
+    List<modeluser> modelusers{ get; set; } = new List<modeluser>();
+    protected override void OnInitialized()
+    {
+        loaddata();
+        base.OnInitialized();
+    }
+    private void loaddata()
+    {
+        modelusers = daluser.get_user();
+    }
+    private void deldata(int id)
+    {
+        daluser.del_user(id);
+        loaddata();
+    }
+}

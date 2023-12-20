@@ -1,0 +1,21 @@
+﻿@page "/update_user/{id}"
+@inject NavigationManager nm
+<h3>Update</h3>
+<EditForm Model="m2" OnSubmit="update_user_info">
+    <input type="text" placeholder="Enter Name" @bind-value="m2.Name" />
+    <input type="text" placeholder="Enter Email" @bind-value="m2.Email" />
+    <input type="text" placeholder="Enter Phone Number" @bind-value="m2.Phone" />
+    <button type="submit">Save</button>
+</EditForm>
+@code {
+    private modeluser m2 { get; set; } = new modeluser();
+    [Parameter]
+    public string? id { get; set; }
+    public void update_user_info()
+    {
+        m2.User_id = int.Parse(id);
+        daluser.update_user(m2);
+        nm.NavigateTo("showdata");
+    }
+
+}
